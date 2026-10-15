@@ -1,352 +1,261 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Prescription Refill Request | SYNC Life</title>
+<!-- Evolve Health & Wellness | Prescription Refill Form -->
+<!-- Paste the entire code into a Custom HTML element -->
 
 <style>
-body {
-  margin: 0;
-  background: #f4faf7;
-}
-
-#sync-rx-app {
-  --midnight: #0f4f55;
+#evolve-rx-app {
+  --navy: #0f4f55;
   --mint: #76c7a0;
-  --white: #ffffff;
-  --lemon: #f2eb9e;
-  --charcoal: #3a4648;
   --ink: #243638;
   --muted: #667679;
-  --mist: #f3f8f6;
   --line: #d9e5e1;
-  --danger: #9f2f2f;
-
+  --mist: #f3f8f6;
+  color: var(--ink);
+  background: linear-gradient(145deg,#f4faf7,#fff 48%,#eef7f3);
+  font: 15px/1.55 Inter, "Avenir Next", Arial, sans-serif;
+  padding: 0 0 52px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: 100vh;
-  padding-bottom: 52px;
-  color: var(--ink);
-  background: linear-gradient(
-    145deg,
-    #f4faf7 0%,
-    #ffffff 48%,
-    #eef7f3 100%
-  );
-  font-family: Inter, "Avenir Next", Avenir,
-    Montserrat, Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.55;
 }
-
-#sync-rx-app,
-#sync-rx-app * {
+#evolve-rx-app,
+#evolve-rx-app * {
   box-sizing: border-box;
 }
-
-#sync-rx-app [hidden] {
+#evolve-rx-app [hidden] {
   display: none !important;
 }
-
-#sync-rx-app .sync-bg {
+#evolve-rx-app .er-blob {
   position: absolute;
-  border-radius: 999px;
-  pointer-events: none;
   z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
 }
-
-#sync-rx-app .sync-bg-one {
+#evolve-rx-app .er-blob.one {
   width: 420px;
   height: 420px;
   right: -220px;
   top: 100px;
-  background: rgba(118,199,160,.20);
+  background: rgba(118,199,160,.2);
 }
-
-#sync-rx-app .sync-bg-two {
+#evolve-rx-app .er-blob.two {
   width: 280px;
   height: 280px;
   left: -170px;
   bottom: 8%;
   background: rgba(242,235,158,.24);
 }
-
-#sync-rx-app .sync-header {
+#evolve-rx-app .er-header {
+  max-width: 1120px;
+  margin: auto;
+  padding: 25px 30px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 28px 30px 20px;
+  gap: 24px;
 }
-
-#sync-rx-app .sync-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-
-#sync-rx-app .sync-brand-logo {
+#evolve-rx-app .er-logo {
   display: block;
+  max-width: 220px;
+  max-height: 75px;
   width: auto;
   height: auto;
-  max-width: 220px;
-  max-height: 65px;
   object-fit: contain;
-  object-position: left center;
 }
-
-#sync-rx-app .sync-header-meta {
-  color: var(--midnight);
+#evolve-rx-app .er-location {
   font-size: 12px;
-  font-weight: 850;
-  letter-spacing: .1em;
+  text-align: right;
+  color: var(--navy);
+  font-weight: 600;
+}
+#evolve-rx-app .er-location strong {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .05em;
   text-transform: uppercase;
 }
-
-#sync-rx-app .sync-shell {
-  width: min(1040px, calc(100% - 32px));
-  margin: 0 auto;
+#evolve-rx-app .er-shell {
+  max-width: 1040px;
+  width: calc(100% - 32px);
+  margin: auto;
   background: rgba(255,255,255,.97);
   border: 1px solid rgba(15,79,85,.09);
   border-radius: 24px;
   box-shadow: 0 24px 70px rgba(15,79,85,.12);
 }
-
-#sync-rx-app .sync-content {
+#evolve-rx-app .er-content {
   padding: 46px clamp(24px,6vw,72px) 44px;
 }
-
-#sync-rx-app h1,
-#sync-rx-app h2,
-#sync-rx-app h3 {
-  color: var(--midnight);
-  line-height: 1.13;
+#evolve-rx-app h1,
+#evolve-rx-app h2,
+#evolve-rx-app h3 {
   margin: 0;
+  color: var(--navy);
+  line-height: 1.15;
   letter-spacing: -.025em;
 }
-
-#sync-rx-app h1 {
-  margin-bottom: 14px;
+#evolve-rx-app h1 {
   font-size: clamp(34px,5vw,50px);
-  font-weight: 800;
+  margin-bottom: 14px;
 }
-
-#sync-rx-app h2 {
+#evolve-rx-app h2 {
   font-size: 21px;
-  font-weight: 800;
+  margin-bottom: 8px;
 }
-
-#sync-rx-app h3 {
+#evolve-rx-app h3 {
   font-size: 18px;
-  font-weight: 800;
 }
-
-#sync-rx-app p {
+#evolve-rx-app p {
   margin: 0;
 }
-
-#sync-rx-app .sync-eyebrow {
-  color: var(--midnight);
+#evolve-rx-app .er-eyebrow {
   font-size: 12px;
   font-weight: 900;
   letter-spacing: .18em;
+  color: var(--navy);
   margin-bottom: 14px;
 }
-
-#sync-rx-app .sync-lead {
+#evolve-rx-app .er-lead {
   max-width: 720px;
   font-size: 17px;
   color: #526568;
   margin-bottom: 36px;
 }
-
-#sync-rx-app .sync-divider {
+#evolve-rx-app .er-divider {
   height: 1px;
-  margin: 34px 0 30px;
   background: var(--line);
+  margin: 34px 0 30px;
 }
-
-#sync-rx-app .sync-section-title {
-  margin-bottom: 9px;
-}
-
-#sync-rx-app .sync-section-intro {
-  color: var(--muted);
+#evolve-rx-app .er-intro {
   font-size: 13px;
-  margin-bottom: 22px;
+  color: var(--muted);
+  margin: 0 0 22px;
 }
-
-#sync-rx-app .sync-grid {
+#evolve-rx-app .er-grid {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 18px;
-  margin-bottom: 20px;
+  margin: 0 0 20px;
 }
-
-#sync-rx-app .sync-grid-2 {
+#evolve-rx-app .er-grid.two {
   grid-template-columns: repeat(2,minmax(0,1fr));
 }
-
-#sync-rx-app label,
-#sync-rx-app legend {
-  color: var(--charcoal);
+#evolve-rx-app label,
+#evolve-rx-app legend {
   font-size: 14px;
   font-weight: 750;
+  color: #3a4648;
 }
-
-#sync-rx-app .sync-field {
+#evolve-rx-app .er-field {
   display: block;
   min-width: 0;
 }
-
-#sync-rx-app .sync-required {
-  color: var(--midnight);
-}
-
-#sync-rx-app input:not([type="checkbox"]):not([type="radio"]),
-#sync-rx-app textarea {
+#evolve-rx-app input:not([type=radio]):not([type=checkbox]),
+#evolve-rx-app textarea {
   display: block;
   width: 100%;
-  margin-top: 7px;
   padding: 13px 14px;
-  color: var(--ink);
-  background: var(--white);
+  margin-top: 7px;
   border: 1.5px solid #cbdad5;
   border-radius: 10px;
-  outline: none;
+  background: #fff;
+  color: var(--ink);
+  outline: 0;
   font: inherit;
   font-weight: 500;
-  transition: border-color .15s, box-shadow .15s;
 }
-
-#sync-rx-app textarea {
+#evolve-rx-app textarea {
   min-height: 92px;
   resize: vertical;
 }
-
-#sync-rx-app input::placeholder,
-#sync-rx-app textarea::placeholder {
-  color: #879795;
-}
-
-#sync-rx-app input:focus,
-#sync-rx-app textarea:focus {
-  border-color: var(--midnight) !important;
+#evolve-rx-app input:focus,
+#evolve-rx-app textarea:focus {
+  border-color: var(--navy) !important;
   box-shadow: 0 0 0 4px rgba(118,199,160,.22);
 }
-
-#sync-rx-app .sync-rx-card {
+#evolve-rx-app .er-card {
   margin-bottom: 16px;
   padding: 23px 24px 21px;
   background: var(--mist);
   border: 1px solid var(--line);
   border-radius: 16px;
 }
-
-#sync-rx-app .sync-rx-head {
+#evolve-rx-app .er-card-head {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
   margin-bottom: 15px;
 }
-
-#sync-rx-app .sync-rx-number {
-  color: var(--midnight);
-  background: #e3f2ea;
+#evolve-rx-app .er-card .er-field {
+  margin-bottom: 20px;
+}
+#evolve-rx-app .er-counter {
   padding: 5px 10px;
-  border-radius: 50px;
+  background: #e3f2ea;
+  color: var(--navy);
+  border-radius: 30px;
   font-size: 11px;
   font-weight: 850;
-  letter-spacing: .08em;
 }
-
-#sync-rx-app .sync-optional {
+#evolve-rx-app .er-optional {
   color: var(--muted);
   font-size: 12px;
   font-weight: 600;
 }
-
-#sync-rx-app .sync-rx-card .sync-field {
-  margin-bottom: 20px;
-}
-
-#sync-rx-app fieldset {
-  min-width: 0;
+#evolve-rx-app fieldset {
   border: 0;
   padding: 0;
   margin: 0;
+  min-width: 0;
 }
-
-#sync-rx-app legend {
+#evolve-rx-app legend {
   margin-bottom: 12px;
 }
-
-#sync-rx-app .sync-choice-row {
+#evolve-rx-app .er-choices {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
   gap: 10px;
 }
-
-#sync-rx-app .sync-choice,
-#sync-rx-app .sync-check {
+#evolve-rx-app .er-choice,
+#evolve-rx-app .er-check {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  margin: 0;
-  padding: 12px 14px;
+  background: #fff;
   border: 1.5px solid var(--line);
   border-radius: 10px;
-  background: var(--white);
+  padding: 12px 14px;
   cursor: pointer;
   font-weight: 650;
 }
-
-#sync-rx-app .sync-choice {
+#evolve-rx-app .er-choice {
   min-height: 68px;
 }
-
-#sync-rx-app .sync-choice:hover,
-#sync-rx-app .sync-check:hover {
-  border-color: var(--mint);
-  background: #f7fcf9;
-}
-
-#sync-rx-app .sync-choice:has(input:checked),
-#sync-rx-app .sync-check:has(input:checked) {
-  border-color: var(--midnight);
+#evolve-rx-app .er-choice:has(input:checked),
+#evolve-rx-app .er-check:has(input:checked) {
   background: #ecf8f2;
+  border-color: var(--navy);
 }
-
-#sync-rx-app .sync-choice input,
-#sync-rx-app .sync-check input {
+#evolve-rx-app input[type=radio],
+#evolve-rx-app input[type=checkbox] {
+  flex: none;
   width: 16px;
   height: 16px;
   margin: 3px 0 0;
-  accent-color: var(--midnight);
-  flex: 0 0 auto;
+  accent-color: var(--navy);
 }
-
-#sync-rx-app .sync-choice span {
+#evolve-rx-app .er-choice span,
+#evolve-rx-app .er-check span {
   font-size: 13px;
-  line-height: 1.48;
+  line-height: 1.5;
 }
-
-#sync-rx-app .sync-consent {
-  padding: 18px 20px;
+#evolve-rx-app .er-consent {
   background: var(--mist);
+  padding: 18px 20px;
   border-radius: 14px;
 }
-
-#sync-rx-app .sync-consent span {
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-#sync-rx-app .sync-actions {
+#evolve-rx-app .er-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -355,572 +264,458 @@ body {
   padding-top: 26px;
   border-top: 1px solid var(--line);
 }
-
-#sync-rx-app .sync-btn {
-  min-height: 52px;
+#evolve-rx-app .er-button {
   min-width: 260px;
-  padding: 13px 32px;
-  border: 1.5px solid var(--midnight);
+  min-height: 52px;
+  background: var(--navy);
+  border: 1px solid var(--navy);
   border-radius: 10px;
-  color: #fff;
-  background: var(--midnight);
+  color: white;
+  padding: 13px 32px;
+  cursor: pointer;
   font: inherit;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: .08em;
-  cursor: pointer;
 }
-
-#sync-rx-app .sync-btn:hover:not(:disabled) {
+#evolve-rx-app .er-button:hover:not(:disabled) {
   background: #0d4045;
-  box-shadow: 0 8px 18px rgba(15,79,85,.16);
 }
-
-#sync-rx-app .sync-btn:disabled {
+#evolve-rx-app .er-button:disabled {
   opacity: .6;
   cursor: wait;
 }
-
-#sync-rx-app .sync-footer-note {
-  color: var(--muted);
-  font-size: 12px;
+#evolve-rx-app .er-note {
   text-align: center;
+  font-size: 12px;
+  color: var(--muted);
 }
-
-#sync-rx-app .sync-status {
+#evolve-rx-app .er-status {
   width: 100%;
-  margin-top: 10px;
   padding: 14px 18px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
-  border-radius: 12px;
 }
-
-#sync-rx-app .sync-status.is-error {
-  color: var(--danger);
+#evolve-rx-app .er-error {
+  color: #9f2f2f;
   background: #fff0ee;
   border: 1px solid #e6aaa4;
 }
-
-#sync-rx-app .sync-invalid {
+#evolve-rx-app .er-invalid {
   border-color: #d93838 !important;
   background: #fff2f2 !important;
-  box-shadow: 0 0 0 3px rgba(217,56,56,.15) !important;
 }
-
-#sync-rx-app .sync-invalid-options {
-  padding: 10px;
+#evolve-rx-app .er-invalid-group {
+  outline: 2px solid #d93838;
   border-radius: 10px;
-  outline: 1.5px solid #d93838;
+  padding: 6px;
 }
-
-#sync-rx-app .sync-confirmation {
-  padding: 28px 0 36px;
+#evolve-rx-app .er-success {
   text-align: center;
+  padding: 28px 0 36px;
 }
-
-#sync-rx-app .sync-confirmation-mark {
+#evolve-rx-app .er-success-mark {
   display: grid;
   place-items: center;
+  background: #e3f4eb;
+  color: var(--navy);
+  border-radius: 50%;
   width: 68px;
   height: 68px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  color: var(--midnight);
-  background: #e3f4eb;
   font-size: 35px;
+  margin: 0 auto 20px;
 }
-
-#sync-rx-app .sync-confirmation h2 {
-  font-size: 30px;
-  margin-bottom: 14px;
-}
-
-#sync-rx-app .sync-confirmation p {
+#evolve-rx-app .er-success p {
   max-width: 570px;
-  margin: 0 auto;
+  margin: 10px auto;
   color: #526568;
 }
-
 @media(max-width:620px) {
-  #sync-rx-app .sync-header {
+  #evolve-rx-app .er-header {
     padding: 20px 18px 14px;
+    display: block;
   }
-  #sync-rx-app .sync-header-meta {
-    display: none;
+  #evolve-rx-app .er-location {
+    text-align: left;
+    margin-top: 12px;
   }
-  #sync-rx-app .sync-brand-logo {
+  #evolve-rx-app .er-logo {
     max-width: 185px;
     max-height: 56px;
   }
-  #sync-rx-app .sync-shell {
+  #evolve-rx-app .er-shell {
     width: calc(100% - 16px);
     border-radius: 16px;
   }
-  #sync-rx-app .sync-content {
+  #evolve-rx-app .er-content {
     padding: 32px 18px 27px;
   }
-  #sync-rx-app .sync-grid-2,
-  #sync-rx-app .sync-choice-row {
+  #evolve-rx-app .er-grid.two,
+  #evolve-rx-app .er-choices {
     grid-template-columns: 1fr;
   }
-  #sync-rx-app .sync-rx-card {
+  #evolve-rx-app .er-card {
     padding: 18px;
   }
-  #sync-rx-app .sync-btn {
+  #evolve-rx-app .er-button {
     width: 100%;
   }
 }
 </style>
-</head>
 
-<body>
+<section id="evolve-rx-app">
+  <div class="er-blob one"></div>
+  <div class="er-blob two"></div>
 
-<div id="sync-rx-app">
-
-  <div class="sync-bg sync-bg-one"></div>
-  <div class="sync-bg sync-bg-two"></div>
-
-  <header class="sync-header">
-    <div class="sync-brand">
-      <img
-        class="sync-brand-logo"
-        src="https://assets.cdn.filesafe.space/z85Y4tKRPRddv16dW0Gr/media/6abfdb7cf30b488137b57936.svg"
-        alt="SYNC Life"
-        loading="eager"
-        decoding="async"
-      >
+  <header class="er-header">
+    <img
+      class="er-logo"
+      src="https://assets.cdn.filesafe.space/AhlAA4J2lOHtgKbk34Rb/media/699e121e8ae9a1c34f353ba2.png"
+      alt="Evolve Health & Wellness"
+      loading="eager"
+    >
+    <div class="er-location">
+      <strong>Evolve Health & Wellness</strong>
+      6470 Wy Pt Blvd, St. Cloud, FL 34773
     </div>
-
-    <span class="sync-header-meta">Patient Services</span>
   </header>
 
-  <main class="sync-shell">
-    <div class="sync-content">
+  <main class="er-shell">
+    <div class="er-content">
 
-      <div id="sync-rx-form-view">
-
-        <div class="sync-eyebrow">
-          PRESCRIPTION SERVICES
-        </div>
-
+      <div id="evolve-form-view">
+        <div class="er-eyebrow">PRESCRIPTION SERVICES</div>
         <h1>Prescription refill request</h1>
-
-        <p class="sync-lead">
+        <p class="er-lead">
           Complete the form below to request a refill.
-          Our team will review your request and contact
-          you if anything else is needed.
+          The Evolve Health & Wellness team will review
+          your request and contact you if anything else is needed.
         </p>
 
-        <form id="sync-rx-form" novalidate>
-
-          <h2 class="sync-section-title">
-            Your information
-          </h2>
-
-          <p class="sync-section-intro">
-            Please enter the contact information
-            associated with your patient profile.
+        <form id="evolve-refill-form" novalidate>
+          <h2>Your information</h2>
+          <p class="er-intro">
+            Please enter the contact information associated
+            with your patient profile.
           </p>
 
-          <div class="sync-grid sync-grid-2">
-            <label class="sync-field">
+          <div class="er-grid two">
+            <label class="er-field">
               First name *
-              <input name="first"
-                     type="text"
-                     placeholder="First name"
-                     autocomplete="given-name"
-                     required>
+              <input name="first" type="text"
+                autocomplete="given-name"
+                placeholder="First name" required>
             </label>
-
-            <label class="sync-field">
+            <label class="er-field">
               Last name *
-              <input name="last"
-                     type="text"
-                     placeholder="Last name"
-                     autocomplete="family-name"
-                     required>
+              <input name="last" type="text"
+                autocomplete="family-name"
+                placeholder="Last name" required>
             </label>
           </div>
 
-          <div class="sync-grid sync-grid-2">
-            <label class="sync-field">
+          <div class="er-grid two">
+            <label class="er-field">
               Phone *
-              <input name="phone"
-                     type="tel"
-                     placeholder="(555) 000-0000"
-                     autocomplete="tel"
-                     required>
+              <input name="phone" type="tel"
+                autocomplete="tel"
+                placeholder="(555) 000-0000" required>
             </label>
-
-            <label class="sync-field">
+            <label class="er-field">
               Email *
-              <input name="email"
-                     type="email"
-                     placeholder="you@example.com"
-                     autocomplete="email"
-                     required>
+              <input name="email" type="email"
+                autocomplete="email"
+                placeholder="you@example.com" required>
             </label>
           </div>
 
-          <div class="sync-grid sync-grid-2">
-            <label class="sync-field">
+          <div class="er-grid two">
+            <label class="er-field">
               Date of birth *
-              <input name="date_of_birth"
-                     type="date"
-                     autocomplete="bday"
-                     required>
+              <input name="date_of_birth" type="date"
+                autocomplete="bday" required>
             </label>
           </div>
 
-          <div class="sync-divider"></div>
-
-          <h2 class="sync-section-title">
-            Prescriptions to refill
-          </h2>
-
-          <p class="sync-section-intro">
+          <div class="er-divider"></div>
+          <h2>Prescriptions to refill</h2>
+          <p class="er-intro">
             Enter up to three prescriptions and select
             how you'd like to receive each one.
           </p>
 
           <!-- PRESCRIPTION 1 -->
-          <section class="sync-rx-card">
-            <div class="sync-rx-head">
+          <section class="er-card">
+            <div class="er-card-head">
               <h3>Prescription #1 *</h3>
-              <span class="sync-rx-number">01 / 03</span>
+              <span class="er-counter">01 / 03</span>
             </div>
-
-            <label class="sync-field">
+            <label class="er-field">
               Prescription name or details
               <textarea name="prescription_1"
-                        placeholder="Enter the prescription you'd like refilled"
-                        required></textarea>
+                placeholder="Enter the prescription you'd like refilled"
+                required></textarea>
             </label>
-
             <fieldset data-rx-choice="1">
               <legend>Please choose one *</legend>
-
-              <div class="sync-choice-row">
-
-                <label class="sync-choice">
+              <div class="er-choices">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_1_choice"
-                         value="pickup">
+                    name="prescription_1_choice"
+                    value="pickup">
                   <span>
-                    I will pick up my prescription
-                    at SYNC or my local pharmacy.
+                    I will pick up my prescription at
+                    Evolve Health & Wellness or my local pharmacy.
                   </span>
                 </label>
-
-                <label class="sync-choice">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_1_choice"
-                         value="shipping">
+                    name="prescription_1_choice"
+                    value="shipping">
                   <span>
-                    Ship my prescription to
-                    the address below.
+                    Ship my prescription to the address below.
                   </span>
                 </label>
-
               </div>
             </fieldset>
           </section>
 
           <!-- PRESCRIPTION 2 -->
-          <section class="sync-rx-card">
-            <div class="sync-rx-head">
+          <section class="er-card">
+            <div class="er-card-head">
               <h3>Prescription #2</h3>
-              <span class="sync-optional">Optional</span>
+              <span class="er-optional">Optional</span>
             </div>
-
-            <label class="sync-field">
+            <label class="er-field">
               Prescription name or details
               <textarea name="prescription_2"
-                        placeholder="Enter another prescription, if needed"></textarea>
+                placeholder="Enter another prescription, if needed"></textarea>
             </label>
-
             <fieldset data-rx-choice="2">
               <legend>Please choose one</legend>
-
-              <div class="sync-choice-row">
-
-                <label class="sync-choice">
+              <div class="er-choices">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_2_choice"
-                         value="pickup">
+                    name="prescription_2_choice"
+                    value="pickup">
                   <span>
-                    I will pick up my prescription
-                    at SYNC or my local pharmacy.
+                    I will pick up my prescription at
+                    Evolve Health & Wellness or my local pharmacy.
                   </span>
                 </label>
-
-                <label class="sync-choice">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_2_choice"
-                         value="shipping">
+                    name="prescription_2_choice"
+                    value="shipping">
                   <span>
-                    Ship my prescription to
-                    the address below.
+                    Ship my prescription to the address below.
                   </span>
                 </label>
-
               </div>
             </fieldset>
           </section>
 
           <!-- PRESCRIPTION 3 -->
-          <section class="sync-rx-card">
-            <div class="sync-rx-head">
+          <section class="er-card">
+            <div class="er-card-head">
               <h3>Prescription #3</h3>
-              <span class="sync-optional">Optional</span>
+              <span class="er-optional">Optional</span>
             </div>
-
-            <label class="sync-field">
+            <label class="er-field">
               Prescription name or details
               <textarea name="prescription_3"
-                        placeholder="Enter another prescription, if needed"></textarea>
+                placeholder="Enter another prescription, if needed"></textarea>
             </label>
-
             <fieldset data-rx-choice="3">
               <legend>Please choose one</legend>
-
-              <div class="sync-choice-row">
-
-                <label class="sync-choice">
+              <div class="er-choices">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_3_choice"
-                         value="pickup">
+                    name="prescription_3_choice"
+                    value="pickup">
                   <span>
-                    I will pick up my prescription
-                    at SYNC or my local pharmacy.
+                    I will pick up my prescription at
+                    Evolve Health & Wellness or my local pharmacy.
                   </span>
                 </label>
-
-                <label class="sync-choice">
+                <label class="er-choice">
                   <input type="radio"
-                         name="prescription_3_choice"
-                         value="shipping">
+                    name="prescription_3_choice"
+                    value="shipping">
                   <span>
-                    Ship my prescription to
-                    the address below.
+                    Ship my prescription to the address below.
                   </span>
                 </label>
-
               </div>
             </fieldset>
           </section>
 
-          <!-- PREFERRED PHARMACY -->
-          <div class="sync-divider"></div>
-
-          <h2 class="sync-section-title">
-            Preferred pharmacy
-          </h2>
-
-          <p class="sync-section-intro">
-            Please provide the name of your
-            preferred pharmacy.
+          <div class="er-divider"></div>
+          <h2>Preferred pharmacy</h2>
+          <p class="er-intro">
+            Please provide the name of your preferred pharmacy.
           </p>
-
-          <div class="sync-grid">
-            <label class="sync-field">
+          <div class="er-grid">
+            <label class="er-field">
               Preferred pharmacy name *
-              <input name="preferred_pharmacy"
-                     type="text"
-                     placeholder="Example: CVS, Walgreens, or SYNC"
-                     required>
+              <input name="preferred_pharmacy" type="text"
+                placeholder="Example: CVS, Walgreens, or your local pharmacy"
+                required>
             </label>
           </div>
-
-          <!-- REQUESTED CHANGES / STAFF NOTES -->
-          <div class="sync-grid">
-            <label class="sync-field">
+          <div class="er-grid">
+            <label class="er-field">
               Requested Changes to Rx or Staff Notes
-              <span class="sync-optional">(optional)</span>
+              <span class="er-optional">(optional)</span>
               <textarea
                 name="requested_changes_to_rx_or_staff_notes"
                 placeholder="Any changes to your prescription or notes for our staff?"></textarea>
             </label>
           </div>
 
-          <!-- SHIPPING ADDRESS -->
-          <div class="sync-divider"></div>
-
-          <h2 class="sync-section-title">
-            Shipping address
-          </h2>
-
-          <p class="sync-section-intro">
+          <div class="er-divider"></div>
+          <h2>Shipping address</h2>
+          <p class="er-intro">
             Required only if you're having at least
             one prescription shipped.
           </p>
-
-          <div class="sync-grid">
-            <label class="sync-field">
+          <div class="er-grid">
+            <label class="er-field">
               Street address
-              <input name="address"
-                     type="text"
-                     placeholder="Street address"
-                     autocomplete="street-address">
+              <input name="address" type="text"
+                autocomplete="street-address"
+                placeholder="Street address">
             </label>
           </div>
-
-          <div class="sync-grid sync-grid-2">
-            <label class="sync-field">
+          <div class="er-grid two">
+            <label class="er-field">
               City
-              <input name="city"
-                     type="text"
-                     placeholder="City"
-                     autocomplete="address-level2">
+              <input name="city" type="text"
+                autocomplete="address-level2"
+                placeholder="City">
             </label>
-
-            <label class="sync-field">
+            <label class="er-field">
               State
-              <input name="state"
-                     type="text"
-                     placeholder="State"
-                     autocomplete="address-level1">
+              <input name="state" type="text"
+                autocomplete="address-level1"
+                placeholder="State">
             </label>
           </div>
-
-          <div class="sync-grid sync-grid-2">
-            <label class="sync-field">
+          <div class="er-grid two">
+            <label class="er-field">
               Postal code
-              <input name="postal_code"
-                     type="text"
-                     placeholder="ZIP or postal code"
-                     autocomplete="postal-code">
+              <input name="postal_code" type="text"
+                autocomplete="postal-code"
+                placeholder="ZIP or postal code">
             </label>
           </div>
 
-          <!-- TERMS -->
-          <div class="sync-divider"></div>
-
-          <div class="sync-consent">
-            <label class="sync-check">
+          <div class="er-divider"></div>
+          <div class="er-consent">
+            <label class="er-check">
               <input type="checkbox"
-                     name="terms_and_conditions"
-                     value="accepted"
-                     required>
-
+                name="terms_and_conditions"
+                value="accepted" required>
               <span>
                 I have verified that all previous refill
                 selections have been cleared and that only
                 the medications I am currently requesting
-                are selected. I understand that SYNC is not
-                responsible for charges incurred as a
-                result of incorrect or unintended refill
-                requests submitted on this form.
+                are selected. I understand that Evolve Health
+                & Wellness is not responsible for charges
+                incurred as a result of incorrect or
+                unintended refill requests submitted
+                on this form.
               </span>
             </label>
           </div>
 
-          <!-- SUBMIT -->
-          <div class="sync-actions">
-
-            <button class="sync-btn"
-                    id="sync-rx-submit"
-                    type="submit">
+          <div class="er-actions">
+            <button
+              id="evolve-refill-submit"
+              class="er-button"
+              type="submit">
               SUBMIT REFILL REQUEST
             </button>
-
-            <p class="sync-footer-note">
+            <p class="er-note">
               Submitting a request does not guarantee
               a prescription refill.
             </p>
-
-            <div class="sync-status"
-                 id="sync-rx-status"
-                 role="alert"
-                 aria-live="polite"
-                 hidden></div>
-
+            <div id="evolve-refill-status"
+              class="er-status"
+              role="alert"
+              aria-live="polite"
+              hidden></div>
           </div>
-
         </form>
       </div>
 
-      <!-- SUCCESS -->
-      <section class="sync-confirmation"
-               id="sync-rx-confirmation"
-               role="status"
-               hidden>
-
-        <div class="sync-confirmation-mark">✓</div>
-
+      <!-- SUCCESS MESSAGE -->
+      <section id="evolve-refill-confirmation"
+        class="er-success" role="status" hidden>
+        <div class="er-success-mark">✓</div>
         <h2>Request received</h2>
-
         <p>
-          Thank you. Your prescription refill request
-          has been submitted. Our team will contact you
-          if we need any additional information.
+          Thank you. Your prescription refill request has
+          been submitted to Evolve Health & Wellness.
+          Our team will contact you if we need any
+          additional information.
         </p>
-
+        <p>6470 Wy Pt Blvd, St. Cloud, FL 34773</p>
       </section>
 
     </div>
   </main>
-</div>
+</section>
 
 <script>
-(function() {
-
-  const root = document.getElementById('sync-rx-app');
-
-  if (!root || root.dataset.initialized === 'true') {
-    return;
-  }
-
+(() => {
+  const root = document.getElementById('evolve-rx-app');
+  if (!root || root.dataset.initialized === 'true') return;
   root.dataset.initialized = 'true';
 
-  // EXISTING LEADCONNECTOR WEBHOOK
-  const SUBMISSION_ENDPOINT =
-    'https://services.leadconnectorhq.com/hooks/z85Y4tKRPRddv16dW0Gr/webhook-trigger/da558d64-5735-4228-abd1-6f6e9e4d1d7c';
+  const WEBHOOK =
+    'https://services.leadconnectorhq.com/hooks/AhlAA4J2lOHtgKbk34Rb/webhook-trigger/0405e619-8c91-4ff2-8571-9f5699c59eb8';
 
-  const form = root.querySelector('#sync-rx-form');
-  const status = root.querySelector('#sync-rx-status');
-  const button = root.querySelector('#sync-rx-submit');
+  const form = root.querySelector('#evolve-refill-form');
+  const button = root.querySelector('#evolve-refill-submit');
+  const status = root.querySelector('#evolve-refill-status');
 
-  // Prevent future dates of birth
   const dob = form.elements.date_of_birth;
   const today = new Date();
+
   dob.max = new Date(
     today.getTime() - today.getTimezoneOffset() * 60000
   ).toISOString().slice(0, 10);
 
-  function showError(text) {
-    status.textContent = text;
-    status.className = 'sync-status is-error';
+  function clearErrors() {
+    status.hidden = true;
+    root.querySelectorAll('.er-invalid').forEach(el => {
+      el.classList.remove('er-invalid');
+      el.removeAttribute('aria-invalid');
+    });
+    root.querySelectorAll('.er-invalid-group').forEach(el => {
+      el.classList.remove('er-invalid-group');
+    });
+  }
+
+  function showError(message) {
+    status.textContent = message;
+    status.className = 'er-status er-error';
     status.hidden = false;
   }
 
-  function clearErrors() {
-    status.hidden = true;
-
-    root.querySelectorAll('.sync-invalid').forEach(el => {
-      el.classList.remove('sync-invalid');
-      el.removeAttribute('aria-invalid');
-    });
-
-    root.querySelectorAll('.sync-invalid-options').forEach(el => {
-      el.classList.remove('sync-invalid-options');
-    });
-  }
-
-  function validateForm() {
+  function validate() {
     clearErrors();
-
     let firstInvalid = null;
 
     function invalid(el) {
-      el.classList.add('sync-invalid');
+      el.classList.add('er-invalid');
       el.setAttribute('aria-invalid', 'true');
       if (!firstInvalid) firstInvalid = el;
     }
 
-    // Required fields
-    [
+    const required = [
       'first',
       'last',
       'phone',
@@ -928,39 +723,35 @@ body {
       'date_of_birth',
       'prescription_1',
       'preferred_pharmacy'
-    ].forEach(name => {
-      const field = form.elements[name];
+    ];
 
-      if (!field.value.trim() || !field.checkValidity()) {
-        invalid(field);
+    required.forEach(name => {
+      const el = form.elements[name];
+      if (!el.value.trim() || !el.checkValidity()) {
+        invalid(el);
       }
     });
 
     let anyShipping = false;
 
-    // Each prescription needs its own pickup/shipping choice
     for (let n = 1; n <= 3; n++) {
       const rx = form.elements['prescription_' + n];
-
       const choice = form.querySelector(
         'input[name="prescription_' + n + '_choice"]:checked'
       );
-
-      const optionGroup = root.querySelector(
+      const group = form.querySelector(
         '[data-rx-choice="' + n + '"]'
       );
-
-      const hasRx = rx.value.trim().length > 0;
+      const hasRx = Boolean(rx.value.trim());
 
       if (n > 1 && choice && !hasRx) {
         invalid(rx);
       }
 
       if (hasRx && !choice) {
-        optionGroup.classList.add('sync-invalid-options');
-
+        group.classList.add('er-invalid-group');
         if (!firstInvalid) {
-          firstInvalid = optionGroup.querySelector(
+          firstInvalid = group.querySelector(
             'input[type="radio"]'
           );
         }
@@ -971,45 +762,27 @@ body {
       }
     }
 
-    // Shipping address required only for shipping
     if (anyShipping) {
-      [
-        'address',
-        'city',
-        'state',
-        'postal_code'
-      ].forEach(name => {
-        const field = form.elements[name];
-
-        if (!field.value.trim()) {
-          invalid(field);
-        }
+      ['address', 'city', 'state', 'postal_code'].forEach(name => {
+        const el = form.elements[name];
+        if (!el.value.trim()) invalid(el);
       });
     }
 
-    // Required acknowledgement
     if (!form.elements.terms_and_conditions.checked) {
-      const el = form.elements.terms_and_conditions;
-      invalid(el);
-
-      el.closest('.sync-check')
-        .classList.add('sync-invalid-options');
+      invalid(form.elements.terms_and_conditions);
+      form.elements.terms_and_conditions
+        .closest('.er-check')
+        .classList.add('er-invalid-group');
     }
 
     if (firstInvalid) {
-      showError(
-        'Please complete the highlighted required fields.'
-      );
-
+      showError('Please complete the highlighted required fields.');
       firstInvalid.scrollIntoView({
         behavior: 'smooth',
         block: 'center'
       });
-
-      firstInvalid.focus({
-        preventScroll: true
-      });
-
+      firstInvalid.focus({ preventScroll: true });
       return false;
     }
 
@@ -1024,79 +797,58 @@ body {
     if (!status.hidden) clearErrors();
   });
 
-  // SEND FORM DATA
-  form.addEventListener('submit', async function(event) {
+  form.addEventListener('submit', async event => {
     event.preventDefault();
-
-    if (!validateForm()) return;
+    if (!validate()) return;
 
     button.disabled = true;
     button.textContent = 'SUBMITTING...';
 
     try {
-      const formData = new FormData(form);
+      const data = new FormData(form);
+      const get = name => String(data.get(name) ?? '').trim();
 
-      function getValue(name) {
-        return String(formData.get(name) ?? '').trim();
-      }
+      const choice1 = get('prescription_1_choice');
+      const choice2 = get('prescription_2_choice');
+      const choice3 = get('prescription_3_choice');
 
-      const choice1 = getValue('prescription_1_choice');
-      const choice2 = getValue('prescription_2_choice');
-      const choice3 = getValue('prescription_3_choice');
-
-      // Combined pickup/shipping summary
       const fulfillment = [];
 
-      if (getValue('prescription_1')) {
-        fulfillment.push(
-          'Prescription 1: ' +
-          (choice1 === 'shipping' ? 'Ship' : 'Pickup')
-        );
+      for (let n = 1; n <= 3; n++) {
+        if (get('prescription_' + n)) {
+          fulfillment.push(
+            'Prescription ' + n + ': ' +
+            (get('prescription_' + n + '_choice') === 'shipping'
+              ? 'Ship' : 'Pickup')
+          );
+        }
       }
 
-      if (getValue('prescription_2')) {
-        fulfillment.push(
-          'Prescription 2: ' +
-          (choice2 === 'shipping' ? 'Ship' : 'Pickup')
-        );
-      }
-
-      if (getValue('prescription_3')) {
-        fulfillment.push(
-          'Prescription 3: ' +
-          (choice3 === 'shipping' ? 'Ship' : 'Pickup')
-        );
-      }
-
-      // COMPLETE WEBHOOK PAYLOAD
       const payload = {
-        first: getValue('first'),
-        last: getValue('last'),
-        phone: getValue('phone'),
-        email: getValue('email'),
-        date_of_birth: getValue('date_of_birth'),
+        first: get('first'),
+        last: get('last'),
+        phone: get('phone'),
+        email: get('email'),
+        date_of_birth: get('date_of_birth'),
 
-        prescription_1: getValue('prescription_1'),
+        prescription_1: get('prescription_1'),
         prescription_1_choice: choice1,
-
-        prescription_2: getValue('prescription_2'),
+        prescription_2: get('prescription_2'),
         prescription_2_choice: choice2,
-
-        prescription_3: getValue('prescription_3'),
+        prescription_3: get('prescription_3'),
         prescription_3_choice: choice3,
 
         pickup_or_ship: fulfillment.join('; '),
         please_choose_one: fulfillment.join('; '),
 
-        preferred_pharmacy: getValue('preferred_pharmacy'),
-
+        preferred_pharmacy: get('preferred_pharmacy'),
         requested_changes_to_rx_or_staff_notes:
-          getValue('requested_changes_to_rx_or_staff_notes'),
+          get('requested_changes_to_rx_or_staff_notes'),
 
-        address: getValue('address'),
-        city: getValue('city'),
-        state: getValue('state'),
-        postal_code: getValue('postal_code'),
+        address: get('address'),
+        city: get('city'),
+        state: get('state'),
+        postal_code: get('postal_code'),
 
         terms_and_conditions:
           form.elements.terms_and_conditions.checked
@@ -1106,8 +858,7 @@ body {
         submitted_at: new Date().toISOString()
       };
 
-      // POST TO LEADCONNECTOR
-      const response = await fetch(SUBMISSION_ENDPOINT, {
+      const response = await fetch(WEBHOOK, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -1117,31 +868,27 @@ body {
       });
 
       if (!response.ok) {
-        throw new Error('Submission failed');
+        throw new Error('Webhook returned ' + response.status);
       }
 
-      // Success message
-      root.querySelector('#sync-rx-form-view').hidden = true;
-      root.querySelector('#sync-rx-confirmation').hidden = false;
+      root.querySelector('#evolve-form-view').hidden = true;
+      root.querySelector('#evolve-refill-confirmation').hidden = false;
 
-      root.querySelector('#sync-rx-confirmation').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+      root.querySelector('#evolve-refill-confirmation')
+        .scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
 
     } catch (error) {
+      console.error('Evolve refill submission failed:', error);
       showError(
-        'We could not submit your request. Please try again or contact SYNC directly.'
+        'We could not submit your request. Please try again or contact Evolve Health & Wellness directly.'
       );
-
     } finally {
       button.disabled = false;
       button.textContent = 'SUBMIT REFILL REQUEST';
     }
   });
-
 })();
 </script>
-
-</body>
-</html>
