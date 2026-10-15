@@ -1,0 +1,1147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prescription Refill Request | SYNC Life</title>
+
+<style>
+body {
+  margin: 0;
+  background: #f4faf7;
+}
+
+#sync-rx-app {
+  --midnight: #0f4f55;
+  --mint: #76c7a0;
+  --white: #ffffff;
+  --lemon: #f2eb9e;
+  --charcoal: #3a4648;
+  --ink: #243638;
+  --muted: #667679;
+  --mist: #f3f8f6;
+  --line: #d9e5e1;
+  --danger: #9f2f2f;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  padding-bottom: 52px;
+  color: var(--ink);
+  background: linear-gradient(
+    145deg,
+    #f4faf7 0%,
+    #ffffff 48%,
+    #eef7f3 100%
+  );
+  font-family: Inter, "Avenir Next", Avenir,
+    Montserrat, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+#sync-rx-app,
+#sync-rx-app * {
+  box-sizing: border-box;
+}
+
+#sync-rx-app [hidden] {
+  display: none !important;
+}
+
+#sync-rx-app .sync-bg {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+#sync-rx-app .sync-bg-one {
+  width: 420px;
+  height: 420px;
+  right: -220px;
+  top: 100px;
+  background: rgba(118,199,160,.20);
+}
+
+#sync-rx-app .sync-bg-two {
+  width: 280px;
+  height: 280px;
+  left: -170px;
+  bottom: 8%;
+  background: rgba(242,235,158,.24);
+}
+
+#sync-rx-app .sync-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 30px 20px;
+}
+
+#sync-rx-app .sync-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#sync-rx-app .sync-brand-logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 220px;
+  max-height: 65px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+#sync-rx-app .sync-header-meta {
+  color: var(--midnight);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+#sync-rx-app .sync-shell {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  background: rgba(255,255,255,.97);
+  border: 1px solid rgba(15,79,85,.09);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(15,79,85,.12);
+}
+
+#sync-rx-app .sync-content {
+  padding: 46px clamp(24px,6vw,72px) 44px;
+}
+
+#sync-rx-app h1,
+#sync-rx-app h2,
+#sync-rx-app h3 {
+  color: var(--midnight);
+  line-height: 1.13;
+  margin: 0;
+  letter-spacing: -.025em;
+}
+
+#sync-rx-app h1 {
+  margin-bottom: 14px;
+  font-size: clamp(34px,5vw,50px);
+  font-weight: 800;
+}
+
+#sync-rx-app h2 {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+#sync-rx-app h3 {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#sync-rx-app p {
+  margin: 0;
+}
+
+#sync-rx-app .sync-eyebrow {
+  color: var(--midnight);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  margin-bottom: 14px;
+}
+
+#sync-rx-app .sync-lead {
+  max-width: 720px;
+  font-size: 17px;
+  color: #526568;
+  margin-bottom: 36px;
+}
+
+#sync-rx-app .sync-divider {
+  height: 1px;
+  margin: 34px 0 30px;
+  background: var(--line);
+}
+
+#sync-rx-app .sync-section-title {
+  margin-bottom: 9px;
+}
+
+#sync-rx-app .sync-section-intro {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+
+#sync-rx-app .sync-grid {
+  display: grid;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+#sync-rx-app .sync-grid-2 {
+  grid-template-columns: repeat(2,minmax(0,1fr));
+}
+
+#sync-rx-app label,
+#sync-rx-app legend {
+  color: var(--charcoal);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+#sync-rx-app .sync-field {
+  display: block;
+  min-width: 0;
+}
+
+#sync-rx-app .sync-required {
+  color: var(--midnight);
+}
+
+#sync-rx-app input:not([type="checkbox"]):not([type="radio"]),
+#sync-rx-app textarea {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 13px 14px;
+  color: var(--ink);
+  background: var(--white);
+  border: 1.5px solid #cbdad5;
+  border-radius: 10px;
+  outline: none;
+  font: inherit;
+  font-weight: 500;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+#sync-rx-app textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+#sync-rx-app input::placeholder,
+#sync-rx-app textarea::placeholder {
+  color: #879795;
+}
+
+#sync-rx-app input:focus,
+#sync-rx-app textarea:focus {
+  border-color: var(--midnight) !important;
+  box-shadow: 0 0 0 4px rgba(118,199,160,.22);
+}
+
+#sync-rx-app .sync-rx-card {
+  margin-bottom: 16px;
+  padding: 23px 24px 21px;
+  background: var(--mist);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+#sync-rx-app .sync-rx-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+#sync-rx-app .sync-rx-number {
+  color: var(--midnight);
+  background: #e3f2ea;
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .08em;
+}
+
+#sync-rx-app .sync-optional {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#sync-rx-app .sync-rx-card .sync-field {
+  margin-bottom: 20px;
+}
+
+#sync-rx-app fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+#sync-rx-app legend {
+  margin-bottom: 12px;
+}
+
+#sync-rx-app .sync-choice-row {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+}
+
+#sync-rx-app .sync-choice,
+#sync-rx-app .sync-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  cursor: pointer;
+  font-weight: 650;
+}
+
+#sync-rx-app .sync-choice {
+  min-height: 68px;
+}
+
+#sync-rx-app .sync-choice:hover,
+#sync-rx-app .sync-check:hover {
+  border-color: var(--mint);
+  background: #f7fcf9;
+}
+
+#sync-rx-app .sync-choice:has(input:checked),
+#sync-rx-app .sync-check:has(input:checked) {
+  border-color: var(--midnight);
+  background: #ecf8f2;
+}
+
+#sync-rx-app .sync-choice input,
+#sync-rx-app .sync-check input {
+  width: 16px;
+  height: 16px;
+  margin: 3px 0 0;
+  accent-color: var(--midnight);
+  flex: 0 0 auto;
+}
+
+#sync-rx-app .sync-choice span {
+  font-size: 13px;
+  line-height: 1.48;
+}
+
+#sync-rx-app .sync-consent {
+  padding: 18px 20px;
+  background: var(--mist);
+  border-radius: 14px;
+}
+
+#sync-rx-app .sync-consent span {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+#sync-rx-app .sync-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+
+#sync-rx-app .sync-btn {
+  min-height: 52px;
+  min-width: 260px;
+  padding: 13px 32px;
+  border: 1.5px solid var(--midnight);
+  border-radius: 10px;
+  color: #fff;
+  background: var(--midnight);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+
+#sync-rx-app .sync-btn:hover:not(:disabled) {
+  background: #0d4045;
+  box-shadow: 0 8px 18px rgba(15,79,85,.16);
+}
+
+#sync-rx-app .sync-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+#sync-rx-app .sync-footer-note {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+#sync-rx-app .sync-status {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+}
+
+#sync-rx-app .sync-status.is-error {
+  color: var(--danger);
+  background: #fff0ee;
+  border: 1px solid #e6aaa4;
+}
+
+#sync-rx-app .sync-invalid {
+  border-color: #d93838 !important;
+  background: #fff2f2 !important;
+  box-shadow: 0 0 0 3px rgba(217,56,56,.15) !important;
+}
+
+#sync-rx-app .sync-invalid-options {
+  padding: 10px;
+  border-radius: 10px;
+  outline: 1.5px solid #d93838;
+}
+
+#sync-rx-app .sync-confirmation {
+  padding: 28px 0 36px;
+  text-align: center;
+}
+
+#sync-rx-app .sync-confirmation-mark {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  color: var(--midnight);
+  background: #e3f4eb;
+  font-size: 35px;
+}
+
+#sync-rx-app .sync-confirmation h2 {
+  font-size: 30px;
+  margin-bottom: 14px;
+}
+
+#sync-rx-app .sync-confirmation p {
+  max-width: 570px;
+  margin: 0 auto;
+  color: #526568;
+}
+
+@media(max-width:620px) {
+  #sync-rx-app .sync-header {
+    padding: 20px 18px 14px;
+  }
+  #sync-rx-app .sync-header-meta {
+    display: none;
+  }
+  #sync-rx-app .sync-brand-logo {
+    max-width: 185px;
+    max-height: 56px;
+  }
+  #sync-rx-app .sync-shell {
+    width: calc(100% - 16px);
+    border-radius: 16px;
+  }
+  #sync-rx-app .sync-content {
+    padding: 32px 18px 27px;
+  }
+  #sync-rx-app .sync-grid-2,
+  #sync-rx-app .sync-choice-row {
+    grid-template-columns: 1fr;
+  }
+  #sync-rx-app .sync-rx-card {
+    padding: 18px;
+  }
+  #sync-rx-app .sync-btn {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="sync-rx-app">
+
+  <div class="sync-bg sync-bg-one"></div>
+  <div class="sync-bg sync-bg-two"></div>
+
+  <header class="sync-header">
+    <div class="sync-brand">
+      <img
+        class="sync-brand-logo"
+        src="https://assets.cdn.filesafe.space/z85Y4tKRPRddv16dW0Gr/media/6abfdb7cf30b488137b57936.svg"
+        alt="SYNC Life"
+        loading="eager"
+        decoding="async"
+      >
+    </div>
+
+    <span class="sync-header-meta">Patient Services</span>
+  </header>
+
+  <main class="sync-shell">
+    <div class="sync-content">
+
+      <div id="sync-rx-form-view">
+
+        <div class="sync-eyebrow">
+          PRESCRIPTION SERVICES
+        </div>
+
+        <h1>Prescription refill request</h1>
+
+        <p class="sync-lead">
+          Complete the form below to request a refill.
+          Our team will review your request and contact
+          you if anything else is needed.
+        </p>
+
+        <form id="sync-rx-form" novalidate>
+
+          <h2 class="sync-section-title">
+            Your information
+          </h2>
+
+          <p class="sync-section-intro">
+            Please enter the contact information
+            associated with your patient profile.
+          </p>
+
+          <div class="sync-grid sync-grid-2">
+            <label class="sync-field">
+              First name *
+              <input name="first"
+                     type="text"
+                     placeholder="First name"
+                     autocomplete="given-name"
+                     required>
+            </label>
+
+            <label class="sync-field">
+              Last name *
+              <input name="last"
+                     type="text"
+                     placeholder="Last name"
+                     autocomplete="family-name"
+                     required>
+            </label>
+          </div>
+
+          <div class="sync-grid sync-grid-2">
+            <label class="sync-field">
+              Phone *
+              <input name="phone"
+                     type="tel"
+                     placeholder="(555) 000-0000"
+                     autocomplete="tel"
+                     required>
+            </label>
+
+            <label class="sync-field">
+              Email *
+              <input name="email"
+                     type="email"
+                     placeholder="you@example.com"
+                     autocomplete="email"
+                     required>
+            </label>
+          </div>
+
+          <div class="sync-grid sync-grid-2">
+            <label class="sync-field">
+              Date of birth *
+              <input name="date_of_birth"
+                     type="date"
+                     autocomplete="bday"
+                     required>
+            </label>
+          </div>
+
+          <div class="sync-divider"></div>
+
+          <h2 class="sync-section-title">
+            Prescriptions to refill
+          </h2>
+
+          <p class="sync-section-intro">
+            Enter up to three prescriptions and select
+            how you'd like to receive each one.
+          </p>
+
+          <!-- PRESCRIPTION 1 -->
+          <section class="sync-rx-card">
+            <div class="sync-rx-head">
+              <h3>Prescription #1 *</h3>
+              <span class="sync-rx-number">01 / 03</span>
+            </div>
+
+            <label class="sync-field">
+              Prescription name or details
+              <textarea name="prescription_1"
+                        placeholder="Enter the prescription you'd like refilled"
+                        required></textarea>
+            </label>
+
+            <fieldset data-rx-choice="1">
+              <legend>Please choose one *</legend>
+
+              <div class="sync-choice-row">
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_1_choice"
+                         value="pickup">
+                  <span>
+                    I will pick up my prescription
+                    at SYNC or my local pharmacy.
+                  </span>
+                </label>
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_1_choice"
+                         value="shipping">
+                  <span>
+                    Ship my prescription to
+                    the address below.
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- PRESCRIPTION 2 -->
+          <section class="sync-rx-card">
+            <div class="sync-rx-head">
+              <h3>Prescription #2</h3>
+              <span class="sync-optional">Optional</span>
+            </div>
+
+            <label class="sync-field">
+              Prescription name or details
+              <textarea name="prescription_2"
+                        placeholder="Enter another prescription, if needed"></textarea>
+            </label>
+
+            <fieldset data-rx-choice="2">
+              <legend>Please choose one</legend>
+
+              <div class="sync-choice-row">
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_2_choice"
+                         value="pickup">
+                  <span>
+                    I will pick up my prescription
+                    at SYNC or my local pharmacy.
+                  </span>
+                </label>
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_2_choice"
+                         value="shipping">
+                  <span>
+                    Ship my prescription to
+                    the address below.
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- PRESCRIPTION 3 -->
+          <section class="sync-rx-card">
+            <div class="sync-rx-head">
+              <h3>Prescription #3</h3>
+              <span class="sync-optional">Optional</span>
+            </div>
+
+            <label class="sync-field">
+              Prescription name or details
+              <textarea name="prescription_3"
+                        placeholder="Enter another prescription, if needed"></textarea>
+            </label>
+
+            <fieldset data-rx-choice="3">
+              <legend>Please choose one</legend>
+
+              <div class="sync-choice-row">
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_3_choice"
+                         value="pickup">
+                  <span>
+                    I will pick up my prescription
+                    at SYNC or my local pharmacy.
+                  </span>
+                </label>
+
+                <label class="sync-choice">
+                  <input type="radio"
+                         name="prescription_3_choice"
+                         value="shipping">
+                  <span>
+                    Ship my prescription to
+                    the address below.
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+          </section>
+
+          <!-- PREFERRED PHARMACY -->
+          <div class="sync-divider"></div>
+
+          <h2 class="sync-section-title">
+            Preferred pharmacy
+          </h2>
+
+          <p class="sync-section-intro">
+            Please provide the name of your
+            preferred pharmacy.
+          </p>
+
+          <div class="sync-grid">
+            <label class="sync-field">
+              Preferred pharmacy name *
+              <input name="preferred_pharmacy"
+                     type="text"
+                     placeholder="Example: CVS, Walgreens, or SYNC"
+                     required>
+            </label>
+          </div>
+
+          <!-- REQUESTED CHANGES / STAFF NOTES -->
+          <div class="sync-grid">
+            <label class="sync-field">
+              Requested Changes to Rx or Staff Notes
+              <span class="sync-optional">(optional)</span>
+              <textarea
+                name="requested_changes_to_rx_or_staff_notes"
+                placeholder="Any changes to your prescription or notes for our staff?"></textarea>
+            </label>
+          </div>
+
+          <!-- SHIPPING ADDRESS -->
+          <div class="sync-divider"></div>
+
+          <h2 class="sync-section-title">
+            Shipping address
+          </h2>
+
+          <p class="sync-section-intro">
+            Required only if you're having at least
+            one prescription shipped.
+          </p>
+
+          <div class="sync-grid">
+            <label class="sync-field">
+              Street address
+              <input name="address"
+                     type="text"
+                     placeholder="Street address"
+                     autocomplete="street-address">
+            </label>
+          </div>
+
+          <div class="sync-grid sync-grid-2">
+            <label class="sync-field">
+              City
+              <input name="city"
+                     type="text"
+                     placeholder="City"
+                     autocomplete="address-level2">
+            </label>
+
+            <label class="sync-field">
+              State
+              <input name="state"
+                     type="text"
+                     placeholder="State"
+                     autocomplete="address-level1">
+            </label>
+          </div>
+
+          <div class="sync-grid sync-grid-2">
+            <label class="sync-field">
+              Postal code
+              <input name="postal_code"
+                     type="text"
+                     placeholder="ZIP or postal code"
+                     autocomplete="postal-code">
+            </label>
+          </div>
+
+          <!-- TERMS -->
+          <div class="sync-divider"></div>
+
+          <div class="sync-consent">
+            <label class="sync-check">
+              <input type="checkbox"
+                     name="terms_and_conditions"
+                     value="accepted"
+                     required>
+
+              <span>
+                I have verified that all previous refill
+                selections have been cleared and that only
+                the medications I am currently requesting
+                are selected. I understand that SYNC is not
+                responsible for charges incurred as a
+                result of incorrect or unintended refill
+                requests submitted on this form.
+              </span>
+            </label>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="sync-actions">
+
+            <button class="sync-btn"
+                    id="sync-rx-submit"
+                    type="submit">
+              SUBMIT REFILL REQUEST
+            </button>
+
+            <p class="sync-footer-note">
+              Submitting a request does not guarantee
+              a prescription refill.
+            </p>
+
+            <div class="sync-status"
+                 id="sync-rx-status"
+                 role="alert"
+                 aria-live="polite"
+                 hidden></div>
+
+          </div>
+
+        </form>
+      </div>
+
+      <!-- SUCCESS -->
+      <section class="sync-confirmation"
+               id="sync-rx-confirmation"
+               role="status"
+               hidden>
+
+        <div class="sync-confirmation-mark">✓</div>
+
+        <h2>Request received</h2>
+
+        <p>
+          Thank you. Your prescription refill request
+          has been submitted. Our team will contact you
+          if we need any additional information.
+        </p>
+
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+(function() {
+
+  const root = document.getElementById('sync-rx-app');
+
+  if (!root || root.dataset.initialized === 'true') {
+    return;
+  }
+
+  root.dataset.initialized = 'true';
+
+  // EXISTING LEADCONNECTOR WEBHOOK
+  const SUBMISSION_ENDPOINT =
+    'https://services.leadconnectorhq.com/hooks/z85Y4tKRPRddv16dW0Gr/webhook-trigger/da558d64-5735-4228-abd1-6f6e9e4d1d7c';
+
+  const form = root.querySelector('#sync-rx-form');
+  const status = root.querySelector('#sync-rx-status');
+  const button = root.querySelector('#sync-rx-submit');
+
+  // Prevent future dates of birth
+  const dob = form.elements.date_of_birth;
+  const today = new Date();
+  dob.max = new Date(
+    today.getTime() - today.getTimezoneOffset() * 60000
+  ).toISOString().slice(0, 10);
+
+  function showError(text) {
+    status.textContent = text;
+    status.className = 'sync-status is-error';
+    status.hidden = false;
+  }
+
+  function clearErrors() {
+    status.hidden = true;
+
+    root.querySelectorAll('.sync-invalid').forEach(el => {
+      el.classList.remove('sync-invalid');
+      el.removeAttribute('aria-invalid');
+    });
+
+    root.querySelectorAll('.sync-invalid-options').forEach(el => {
+      el.classList.remove('sync-invalid-options');
+    });
+  }
+
+  function validateForm() {
+    clearErrors();
+
+    let firstInvalid = null;
+
+    function invalid(el) {
+      el.classList.add('sync-invalid');
+      el.setAttribute('aria-invalid', 'true');
+      if (!firstInvalid) firstInvalid = el;
+    }
+
+    // Required fields
+    [
+      'first',
+      'last',
+      'phone',
+      'email',
+      'date_of_birth',
+      'prescription_1',
+      'preferred_pharmacy'
+    ].forEach(name => {
+      const field = form.elements[name];
+
+      if (!field.value.trim() || !field.checkValidity()) {
+        invalid(field);
+      }
+    });
+
+    let anyShipping = false;
+
+    // Each prescription needs its own pickup/shipping choice
+    for (let n = 1; n <= 3; n++) {
+      const rx = form.elements['prescription_' + n];
+
+      const choice = form.querySelector(
+        'input[name="prescription_' + n + '_choice"]:checked'
+      );
+
+      const optionGroup = root.querySelector(
+        '[data-rx-choice="' + n + '"]'
+      );
+
+      const hasRx = rx.value.trim().length > 0;
+
+      if (n > 1 && choice && !hasRx) {
+        invalid(rx);
+      }
+
+      if (hasRx && !choice) {
+        optionGroup.classList.add('sync-invalid-options');
+
+        if (!firstInvalid) {
+          firstInvalid = optionGroup.querySelector(
+            'input[type="radio"]'
+          );
+        }
+      }
+
+      if (hasRx && choice && choice.value === 'shipping') {
+        anyShipping = true;
+      }
+    }
+
+    // Shipping address required only for shipping
+    if (anyShipping) {
+      [
+        'address',
+        'city',
+        'state',
+        'postal_code'
+      ].forEach(name => {
+        const field = form.elements[name];
+
+        if (!field.value.trim()) {
+          invalid(field);
+        }
+      });
+    }
+
+    // Required acknowledgement
+    if (!form.elements.terms_and_conditions.checked) {
+      const el = form.elements.terms_and_conditions;
+      invalid(el);
+
+      el.closest('.sync-check')
+        .classList.add('sync-invalid-options');
+    }
+
+    if (firstInvalid) {
+      showError(
+        'Please complete the highlighted required fields.'
+      );
+
+      firstInvalid.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+
+      firstInvalid.focus({
+        preventScroll: true
+      });
+
+      return false;
+    }
+
+    return true;
+  }
+
+  form.addEventListener('input', () => {
+    if (!status.hidden) clearErrors();
+  });
+
+  form.addEventListener('change', () => {
+    if (!status.hidden) clearErrors();
+  });
+
+  // SEND FORM DATA
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    if (!validateForm()) return;
+
+    button.disabled = true;
+    button.textContent = 'SUBMITTING...';
+
+    try {
+      const formData = new FormData(form);
+
+      function getValue(name) {
+        return String(formData.get(name) ?? '').trim();
+      }
+
+      const choice1 = getValue('prescription_1_choice');
+      const choice2 = getValue('prescription_2_choice');
+      const choice3 = getValue('prescription_3_choice');
+
+      // Combined pickup/shipping summary
+      const fulfillment = [];
+
+      if (getValue('prescription_1')) {
+        fulfillment.push(
+          'Prescription 1: ' +
+          (choice1 === 'shipping' ? 'Ship' : 'Pickup')
+        );
+      }
+
+      if (getValue('prescription_2')) {
+        fulfillment.push(
+          'Prescription 2: ' +
+          (choice2 === 'shipping' ? 'Ship' : 'Pickup')
+        );
+      }
+
+      if (getValue('prescription_3')) {
+        fulfillment.push(
+          'Prescription 3: ' +
+          (choice3 === 'shipping' ? 'Ship' : 'Pickup')
+        );
+      }
+
+      // COMPLETE WEBHOOK PAYLOAD
+      const payload = {
+        first: getValue('first'),
+        last: getValue('last'),
+        phone: getValue('phone'),
+        email: getValue('email'),
+        date_of_birth: getValue('date_of_birth'),
+
+        prescription_1: getValue('prescription_1'),
+        prescription_1_choice: choice1,
+
+        prescription_2: getValue('prescription_2'),
+        prescription_2_choice: choice2,
+
+        prescription_3: getValue('prescription_3'),
+        prescription_3_choice: choice3,
+
+        pickup_or_ship: fulfillment.join('; '),
+        please_choose_one: fulfillment.join('; '),
+
+        preferred_pharmacy: getValue('preferred_pharmacy'),
+
+        requested_changes_to_rx_or_staff_notes:
+          getValue('requested_changes_to_rx_or_staff_notes'),
+
+        address: getValue('address'),
+        city: getValue('city'),
+        state: getValue('state'),
+        postal_code: getValue('postal_code'),
+
+        terms_and_conditions:
+          form.elements.terms_and_conditions.checked
+            ? 'accepted'
+            : 'not_accepted',
+
+        submitted_at: new Date().toISOString()
+      };
+
+      // POST TO LEADCONNECTOR
+      const response = await fetch(SUBMISSION_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        credentials: 'omit'
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      // Success message
+      root.querySelector('#sync-rx-form-view').hidden = true;
+      root.querySelector('#sync-rx-confirmation').hidden = false;
+
+      root.querySelector('#sync-rx-confirmation').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+    } catch (error) {
+      showError(
+        'We could not submit your request. Please try again or contact SYNC directly.'
+      );
+
+    } finally {
+      button.disabled = false;
+      button.textContent = 'SUBMIT REFILL REQUEST';
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
